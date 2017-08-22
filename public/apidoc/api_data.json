@@ -1,6 +1,145 @@
 [
   {
     "type": "get",
+    "url": "getCommentList",
+    "title": "获取评论列表",
+    "name": "getCommentList",
+    "group": "Comment",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "course_id",
+            "description": "<p>课程id，必传参数</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "number",
+            "optional": false,
+            "field": "status",
+            "description": "<p>结果状态值，0：请求失败；1：请求成功</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "info",
+            "description": "<p>返回状态说明，status为0时，info返回错误原因，否则返回“OK”</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "array",
+            "optional": false,
+            "field": "data",
+            "description": "<p>返回数据</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "int",
+            "optional": false,
+            "field": "data.id",
+            "description": "<p>评论id</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "int",
+            "optional": false,
+            "field": "data.course_id",
+            "description": "<p>课程id</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "int",
+            "optional": false,
+            "field": "data.level",
+            "description": "<p>评论等级</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "data.message",
+            "description": "<p>评论内容</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "int",
+            "optional": false,
+            "field": "data.stu_id",
+            "description": "<p>学生id</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "data.student_name",
+            "description": "<p>学生名称</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "int",
+            "optional": false,
+            "field": "data.parent_id",
+            "description": "<p>上一级id</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "data.created_at",
+            "description": "<p>创建时间</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "int",
+            "optional": false,
+            "field": "data.good_num",
+            "description": "<p>点赞数</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n\"status\": 1,\n\"info\": \"ok\",\n\"data\": {\n\"current_page\": 1,\n\"data\": [\n{\n\"id\": 1,\n\"course_id\": 1,\n\"level\": 1,\n\"message\": \"这个课程很不错\",\n\"stu_id\": 1,\n\"parent_id\": 0,\n\"created_at\": \"2017-08-22 15:43:53\",\n\"student_name\": \"张三\",\n\"good_num\": 2\n},\n{\n\"id\": 2,\n\"course_id\": 1,\n\"level\": null,\n\"message\": \"老师讲的真好\",\n\"stu_id\": 2,\n\"parent_id\": 0,\n\"created_at\": \"2017-08-22 15:44:08\",\n\"student_name\": \"李四\",\n\"good_num\": 1\n},\n{\n\"id\": 3,\n\"course_id\": 1,\n\"level\": null,\n\"message\": \"我没听懂\",\n\"stu_id\": 3,\n\"parent_id\": 0,\n\"created_at\": \"2017-08-22 15:44:25\",\n\"student_name\": \"王五\",\n\"good_num\": 1\n},\n{\n\"id\": 4,\n\"course_id\": 1,\n\"level\": null,\n\"message\": \"下次还要来\",\n\"stu_id\": 4,\n\"parent_id\": 0,\n\"created_at\": \"2017-08-22 15:44:29\",\n\"student_name\": \"赵六\",\n\"good_num\": 3\n}\n],\n\"from\": 1,\n\"last_page\": 1,\n\"next_page_url\": null,\n\"path\": \"http://weibaner.dev/api/getCommentList\",\n\"per_page\": 10,\n\"prev_page_url\": null,\n\"to\": 4,\n\"total\": 4\n}\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/Http/Controllers/Api/CommentController.php",
+    "groupTitle": "Comment",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "404",
+            "description": "<p>Not Found 接口不存在</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "404 Not Found:",
+          "content": "HTTP/1.1 404 Not Found\n{\n \"message\": \"404 Not Found\",\n \"status_code\": 404\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
     "url": "getCourseDetail",
     "title": "获取课程详情",
     "name": "getCourseDetail",
@@ -446,14 +585,7 @@
             "type": "int",
             "optional": false,
             "field": "course_id",
-            "description": "<p>课程id，可传参数(课程id或教师id 2选1)</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "int",
-            "optional": false,
-            "field": "teacher_id",
-            "description": "<p>教师id，可传参数(课程id或教师id 2选1)</p>"
+            "description": "<p>课程id，必传参数</p>"
           },
           {
             "group": "Parameter",
@@ -528,57 +660,22 @@
             "group": "Success 200",
             "type": "string",
             "optional": false,
-            "field": "data.specialty_name",
+            "field": "data.name",
             "description": "<p>技能名称</p>"
           },
           {
             "group": "Success 200",
             "type": "string",
             "optional": false,
-            "field": "data.teacher_name",
-            "description": "<p>教师名称</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "int",
-            "optional": false,
-            "field": "data.buy_number",
-            "description": "<p>购买数量</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "int",
-            "optional": false,
-            "field": "data.look_number",
-            "description": "<p>观看(点击)数量</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "decimal",
-            "optional": false,
-            "field": "data.old_price",
-            "description": "<p>原价</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "decimal",
-            "optional": false,
-            "field": "data.price",
-            "description": "<p>现价</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "string",
-            "optional": false,
-            "field": "data.image",
-            "description": "<p>图片相对路径</p>"
+            "field": "data.info",
+            "description": "<p>技能信息</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n\"status\": 1,\n\"info\": \"ok\",\n\"data\": {\n\"current_page\": 1,\n\"data\": [\n{\n\"id\": 1,\n\"specialty_name\": \"PHP入门知识\",\n\"teacher_name\": \"王先生\",\n\"buy_number\": 0,\n\"look_number\": 0,\n\"old_price\": \"0.00\",\n\"price\": \"150.00\",\n\"image\": \"specialty_images/1502097686_84946300.jpg\"\n}\n],\n\"from\": 1,\n\"last_page\": 3,\n\"next_page_url\": \"http://weibaner.dev/api/getSpecialtyList?page=2\",\n\"path\": \"http://weibaner.dev/api/getSpecialtyList\",\n\"per_page\": 1,\n\"prev_page_url\": null,\n\"to\": 1,\n\"total\": 3\n}\n}",
+          "content": "HTTP/1.1 200 OK\n{\n\"status\": 1,\n\"info\": \"ok\",\n\"data\": {\n\"current_page\": 1,\n\"data\": [\n{\n\"id\": 1,\n\"name\": \"PHP入门知识\",\n\"info\": \"王先生\"\n}\n],\n\"from\": 1,\n\"last_page\": 3,\n\"next_page_url\": \"http://weibaner.dev/api/getSpecialtyList?page=2\",\n\"path\": \"http://weibaner.dev/api/getSpecialtyList\",\n\"per_page\": 1,\n\"prev_page_url\": null,\n\"to\": 1,\n\"total\": 3\n}\n}",
           "type": "json"
         }
       ]
