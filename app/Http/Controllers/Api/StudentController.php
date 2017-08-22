@@ -61,8 +61,9 @@ class StudentController extends BaseController
             // if (Hash::check('secret', $hashedPassword))
               // {
                      // The passwords match...
-                // }
-            $id = $this->Student->add($request->all());
+               // }
+            return $request->all();
+            //$id = $this->Student->add($request->all());
         }else{
             return $this->error('缺少参数');
         }
