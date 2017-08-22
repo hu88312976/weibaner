@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Support\Facades\Hash;
 use App\Models\Student;
+use App\Models\City;
 use Dingo\Api\Http\Request;
 
 class StudentController extends BaseController
@@ -16,9 +17,61 @@ class StudentController extends BaseController
     }
 
 
-    public function getStudentInfo(Request $request)
+    /**
+     * @api               {get} LoginStu 学生登录
+     * @apiName           LoginStu
+     * @apiGroup          Student
+     * @apiVersion        1.0.0
+     * @apiUse            Error404
+     * @apidescribe       学生登录
+     *
+     * @apiParam {string} account 账号,必传参数
+     * @apiParam {string} pwd 密码,必传参数
+     *
+     * @apiSuccess {number} status 结果状态值，0：请求失败；1：请求成功
+     * @apiSuccess {string} info 返回状态说明，status为0时，info返回错误原因，否则返回“OK”
+     * @apiSuccess {array} data 返回新增的id -1等于失败
+     * @apiSuccess {int}   data.id 学生id
+     * @apiSuccess {string}   data.phone 电话
+     * @apiSuccess {string}   data.email 邮箱
+     * @apiSuccess {string}   data.name 姓名
+     * @apiSuccess {string}   data.city_code 城市代码
+     * @apiSuccess {string}   data.address 地址
+     * @apiSuccess {string}   data.sex 性别
+     * @apiSuccess {string}   data.birth 生日
+     * @apiSuccess {string}   data.is_prof 在职状态
+     * @apiSuccess {string}   data.city_name 城市名称
+     *
+     * @apiSuccessExample Success-Response:
+     * HTTP/1.1 200 OK
+     *{
+     *"status": 1,
+     *"info": "ok",
+     *"data": {
+     *"id": 7,
+     *"name": "3",
+     *"phone": "4",
+     *"email": "5",
+     *"city_code": "180",
+     *"address": "7",
+     *"sex": "男",
+     *"birth": "2017-05-06",
+     *"is_prof": 在校,
+     *"city_name": "武汉市"
+    }
+    }
+     *
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function LoginStu(Request $request)
     {
-        $re_list = $this->Student->getList();
+        $re_list = $this->Student->getOne(['account'=>$request->get('account'),'pwd'=>$request->get('pwd')],['id','name','city_code','sex','phone','email','address','birth','is_prof']);
+        $sex = $re_list['sex'];
+        $city = new  City();
+        $re_list['city_name'] = $city->getOne(['code'=>$re_list['city_code']])->name;
+        $re_list['sex'] = $sex == 1 ? '男':'女';
+        $re_list['is_prof'] = $sex == 0 ? '在校':'在职';
         return  $this->success($re_list);
     }
     /**
@@ -66,7 +119,6 @@ class StudentController extends BaseController
                'account'=> $request->get('account'),
                'pwd'=> $request->get('pwd'),
            ];
-            //$id = $this->Student->add($request->all());
         }else{
             return $this->error('缺少参数');
         }
