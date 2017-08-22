@@ -117,6 +117,52 @@ class CourseController extends BaseController
         return  $this->success($re_list);
     }
 
+    /**
+     * @api               {get} getCourseDetail 获取课程详情
+     * @apiName           getCourseDetail
+     * @apiGroup          Course
+     * @apiVersion        1.0.0
+     * @apiUse            Error404
+     * @apidescribe       课程详情
+     *
+     * @apiParam {int} course_id 课程id,必传参数
+     * @apiSuccess {number} status 结果状态值，0：请求失败；1：请求成功
+     * @apiSuccess {string} info 返回状态说明，status为0时，info返回错误原因，否则返回“OK”
+     * @apiSuccess {array} info 返回数据
+     * @apiSuccess {int}   info.course_id 课程ID
+     * @apiSuccess {string}   info.course_name 课程名称
+     * @apiSuccess {string}   info.teacher_name 教师名称
+     * @apiSuccess {string}   info.specInfo 技能介绍
+     * @apiSuccess {string}   info.teachInfo 教师信息
+     * @apiSuccess {string}   info.title 教师头衔
+     * @apiSuccess {array} specialty_list 返回数据
+     * @apiSuccess {int}   specialty_list.id 技能id
+     * @apiSuccess {string}   specialty_list.name 技能名称
+     * @apiSuccess {string}   specialty_list.info 技能信息
+     *
+     * @apiSuccessExample Success-Response:
+     * HTTP/1.1 200 OK
+     *{
+     *"status": 1,
+     *"info": "ok",
+     *"data": [
+     * current_page": 1,
+     *{
+     *"id": 1,
+     *"name": "Java",
+     *"course_type": 1,
+     *"buy_number": 0,
+     *"click_number": 0,
+     *"old_price": "100.00",
+     *"price": "99.00",
+     *"is_heat": 1,
+     *"image": "specialty_images/1503368798_06412900.jpg"
+     *}
+     *]
+     *}
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getCourseDetail(Request $request){
         if($request->has('course_id')){
             $course_id = $request->get('course_id');

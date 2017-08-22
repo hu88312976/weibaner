@@ -19,7 +19,7 @@ class Course extends BaseModel
             ->where('course.id','=',$course_id)->get();
 
         $specialty = new Specialty();
-        $list =  $specialty->getList(['course_id'=>$course_id]);
+        $list =  $specialty->getList(['course_id'=>$course_id],['id','name','info']);
 
         $res['specialty_list']=$list;
         return $res;
