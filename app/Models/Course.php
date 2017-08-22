@@ -22,7 +22,7 @@ class Course extends BaseModel
      */
     public function getList(array $where = [], $fields = '*', $order = '', $pageSize = '')
     {
-        $order = ['id' => 'asc'];
+
         if ($pageSize) {
             $res = $this->getPaginate($where, $fields, $order, $pageSize);
             if ($res) {
