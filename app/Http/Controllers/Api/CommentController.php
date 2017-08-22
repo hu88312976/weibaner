@@ -3,15 +3,18 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Comment;
+use App\Models\CommentGood;
 use Dingo\Api\Http\Request;
 
 class CommentController extends BaseController
 {
     private  $Comment;
+    private  $Cg;
 
     public function __construct(Comment $Comment)
     {
         $this->Comment = $Comment;
+        $this->Cg = new CommentGood();
     }
 
 
@@ -122,5 +125,98 @@ class CommentController extends BaseController
         $re_list = $this->Comment->getApiList($where,$page_size);
         return  $this->success($re_list);
     }
+
+    /**
+     * @api               {post} addComment 添加评论
+     * @apiName           addComment
+     * @apiGroup          Comment
+     * @apiVersion        1.0.0
+     * @apiUse            Error404
+     * @apidescribe       添加评论
+     *
+     * @apiParam {int} course_id 课程id,必传参数
+     * @apiParam {int} stu_id 学生id,必传参数
+     * @apiParam {int} level 评论等级,可传参数
+     * @apiParam {string} message 姓名,可传参数
+     * @apiParam {int} parent_id 上一级id，可传参数
+     * @apiSuccess {number} status 结果状态值，0：请求失败；1：请求成功
+     * @apiSuccess {string} info 返回状态说明，status为0时，info返回错误原因，否则返回“OK”
+     * @apiSuccess {array} data 返回新增的id -1等于失败
+     *
+     * @apiSuccessExample Success-Response:
+     * HTTP/1.1 200 OK
+     *{
+     *"status": 1,
+     *"info": "ok",
+     *"data": 8
+     *}
+     *
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+
+    public function addComment(Request $request){
+        if ($request->has('course_id') && ($request->has('stu_id'))){
+            $data['course_id']=$request->get('course_id');
+            $data['stu_id']=$request->get('stu_id');
+        }else{
+            return $this->error('缺少参数');
+        }
+        $res = $this->Comment->getOne(['stu_id'=>$request->get('stu_id'),'course_id'=>$request->get('course_id')]);
+        if(count($res) > 0){
+            return $this->error('重复评论');
+        }
+
+        $data['message']=$request->get('message');
+        $data['level']=$request->get('level');
+        $data['parent_id']=$request->get('parent_id');
+
+        return $this->success($this->Comment->add($data));
+    }
+
+
+    /**
+     * @api               {post} CommentUp 评论点赞和反点
+     * @apiName           CommentUp
+     * @apiGroup          Comment
+     * @apiVersion        1.0.0
+     * @apiUse            Error404
+     * @apidescribe       添加评论
+     *
+     * @apiParam {int} comment_id 课程id,必传参数
+     * @apiParam {int} stu_id 学生id,必传参数
+     * @apiSuccess {number} status 结果状态值，0：请求失败；1：请求成功
+     * @apiSuccess {string} info 返回状态说明，status为0时，info返回错误原因，否则返回“OK”
+     * @apiSuccess {array} data 返回新增的id -1等于失败
+     *
+     * @apiSuccessExample Success-Response:
+     * HTTP/1.1 200 OK
+     *{
+     *"status": 1,
+     *"info": "ok",
+     *"data": 8
+     *}
+     *
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function CommentUp(Request $request){
+        if ($request->has('comment_id') && ($request->has('stu_id'))){
+            $data['comment_id']=$request->get('comment_id');
+            $data['stu_id']=$request->get('stu_id');
+        }else{
+            return $this->error('缺少参数');
+        }
+
+        $where = ['stu_id'=>$request->get('stu_id'),'comment_id'=>$request->get('comment_id')];
+        $res = $this->Cg->getOne($where);
+        if(count($res) > 0){
+            return $this->success($this->Cg->Del($where));
+        }else{
+            return $this->success($this->Cg->add($data));
+        }
+
+    }
+
 
 }

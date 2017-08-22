@@ -27,4 +27,6 @@ $api->version('v1', ["prefix" => "api/","namespace" => "App\\Http\\Controllers\\
             $api->get("getCourseDetail", "CourseController@getCourseDetail");//课程详情
 
         $api->post("addStudent","StudentController@addStudent");//注册学生
+        $api->post("addComment","CommentController@addComment");//提交评论
+        $api->post("CommentUp","CommentController@CommentUp");//评论点赞
     });
