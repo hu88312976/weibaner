@@ -51,6 +51,7 @@ return [
         'directory'  => [
             'image'  => 'image',
             'file'   => 'file',
+
         ],
 
         'host' => 'http://119.29.152.83/storage/upload/',
