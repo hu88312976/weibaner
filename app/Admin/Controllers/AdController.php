@@ -2,11 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\Specialty;
-use App\Models\Course;
-use App\Models\Teacher;
-use App\Models\City;
-use App\Models\ClassRoom;
+use App\Models\Ad;
 
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -19,7 +15,7 @@ use App\Admin\Extensions\Tools\GridView;
 use Illuminate\Http\Request;
 
 
-class SpecialtyController extends Controller
+class AdController extends Controller
 {
     use ModelForm;
 
@@ -32,7 +28,7 @@ class SpecialtyController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('技能管理');
+            $content->header('广告管理');
             $content->description('');
 
             $content->body($this->grid());
@@ -49,7 +45,7 @@ class SpecialtyController extends Controller
     {
         return Admin::content(function (Content $content) use ($id) {
 
-            $content->header('编辑技能');
+            $content->header('编辑广告');
             $content->description('');
 
             $content->body($this->form()->edit($id));
@@ -65,7 +61,7 @@ class SpecialtyController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('创建技能');
+            $content->header('创建广告');
             $content->description('');
 
             $content->body($this->form());
@@ -79,21 +75,21 @@ class SpecialtyController extends Controller
      */
     protected function grid()
     {
-        return Admin::grid(Specialty::class, function (Grid $grid) {
+        return Admin::grid(Ad::class, function (Grid $grid) {
 
-            $grid->name('技能名称');
-            $grid->info('技能信息');
-            $grid->course_id('归属课程')->value(function($course_id){
-                $re = new Course();
-                return $re::find($course_id)->name;
+            $grid->title('广告标题');
+
+            $grid->image("图")->value(function ($image) {
+                if($image=="")
+                    return "";
+                else if(substr($image,0,7)=="http://")
+                    return "<img src='".$image."' style='width:40px;height:40px;'>";
+                else if($image)
+                    return "<img src='".config('admin.upload.host').$image."' style='width:40px;height:40px;'>";
             });
-
+            $grid->link_address('广告地址');
 
             $grid->disableExport();
-            $grid->filter(function ($filter) {
-                $filter->like('name', '技能名称');
-                // $filter->disableIdFilter();
-            });
         });
     }
 
@@ -104,14 +100,14 @@ class SpecialtyController extends Controller
      */
     protected function form()
     {
-        return Admin::form(Specialty::class, function (Form $form) {
+        return Admin::form(Ad::class, function (Form $form) {
 
-            $form->text('name','技能名称');
-            $form->text('info','技能信息');
+            $form->text('title','广告标题');
+            $form->text('link_address','连接地址');
 
-            $course = new Course();
-            $form->select('course_id', "归属课程")->options($course::all()->pluck('name','id'));
-
+            list($usec, $sec) = explode(" ", microtime());
+            $name = $sec.str_replace('0.', '_',$usec);
+            $form->image('image', "主图")->move("specialty_images", $name.".jpg");
 
 
             $form->display('created_at', '创建时间');

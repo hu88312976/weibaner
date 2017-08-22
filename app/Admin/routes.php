@@ -17,4 +17,6 @@ Route::group([
     $router->resource('specialty', SpecialtyController::class);
     $router->resource('student', StudentController::class);
     $router->resource('classroom',ClassRoomController::class);
+    $router->resource('industry',IndustryController::class);
+    $router->resource('ad',AdController::class);
 });

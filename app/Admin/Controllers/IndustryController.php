@@ -2,11 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\Specialty;
-use App\Models\Course;
-use App\Models\Teacher;
-use App\Models\City;
-use App\Models\ClassRoom;
+use App\Models\industry;
 
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -19,7 +15,7 @@ use App\Admin\Extensions\Tools\GridView;
 use Illuminate\Http\Request;
 
 
-class SpecialtyController extends Controller
+class IndustryController extends Controller
 {
     use ModelForm;
 
@@ -32,7 +28,7 @@ class SpecialtyController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('技能管理');
+            $content->header('行业管理');
             $content->description('');
 
             $content->body($this->grid());
@@ -49,7 +45,7 @@ class SpecialtyController extends Controller
     {
         return Admin::content(function (Content $content) use ($id) {
 
-            $content->header('编辑技能');
+            $content->header('编辑行业');
             $content->description('');
 
             $content->body($this->form()->edit($id));
@@ -65,7 +61,7 @@ class SpecialtyController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('创建技能');
+            $content->header('创建行业');
             $content->description('');
 
             $content->body($this->form());
@@ -79,21 +75,11 @@ class SpecialtyController extends Controller
      */
     protected function grid()
     {
-        return Admin::grid(Specialty::class, function (Grid $grid) {
+        return Admin::grid(Industry::class, function (Grid $grid) {
+            $grid->id('ID');
+            $grid->name('行业名称');
+            $grid->order_by('排序')->editable()->sortable();
 
-            $grid->name('技能名称');
-            $grid->info('技能信息');
-            $grid->course_id('归属课程')->value(function($course_id){
-                $re = new Course();
-                return $re::find($course_id)->name;
-            });
-
-
-            $grid->disableExport();
-            $grid->filter(function ($filter) {
-                $filter->like('name', '技能名称');
-                // $filter->disableIdFilter();
-            });
         });
     }
 
@@ -104,16 +90,11 @@ class SpecialtyController extends Controller
      */
     protected function form()
     {
-        return Admin::form(Specialty::class, function (Form $form) {
-
-            $form->text('name','技能名称');
-            $form->text('info','技能信息');
-
-            $course = new Course();
-            $form->select('course_id', "归属课程")->options($course::all()->pluck('name','id'));
+        return Admin::form(Industry::class, function (Form $form) {
 
 
-
+            $form->text('name',"名称");
+            $form->number('order_by', "行业排序")->value(9);
             $form->display('created_at', '创建时间');
             $form->display('updated_at', '最后修改时间');
         });
