@@ -117,4 +117,14 @@ class CourseController extends BaseController
         return  $this->success($re_list);
     }
 
+    public function getCourseDetail(Request $request){
+        if($request->has('course_id')){
+            $course_id = $request->get('course_id');
+        }else{
+            return $this->error('缺少参数');
+        }
+        $re_list = $this->Course->getDetail($course_id);
+        return  $this->success($re_list);
+    }
+
 }

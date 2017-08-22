@@ -4,12 +4,26 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\Specialty;
+
 class Course extends BaseModel
 {
     //
     protected $table      = "course";
     protected $primaryKey = 'id';
 
+    public function getDetail($course_id){
+        $res['info'] = $this->select('course.id as course_id','course.name as course_name',
+            'teacher.name as teacher_name','teacher.specInfo','teacher.teachInfo','teacher.title')
+            ->leftjoin('teacher','teacher.id','course.teacher_id')
+            ->where('course.id','=',$course_id)->get();
+
+        $specialty = new Specialty();
+        $list =  $specialty->getList(['course_id'=>$course_id]);
+
+        $res['specialty_list']=$list;
+        return $res;
+    }
     /**
      * 按条件查询单条数据
      */
