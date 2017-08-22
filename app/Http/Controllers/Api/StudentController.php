@@ -69,6 +69,6 @@ class StudentController extends BaseController
 
 
         $v = is_numeric ($id) ? $id : -1;
-        return $this->success($v);
+        return $this->success($id);
     }
 }
