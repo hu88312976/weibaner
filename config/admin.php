@@ -53,7 +53,7 @@ return [
             'file'   => 'file',
         ],
 
-        'host' => 'http://weibaner.dev/storage/upload/',
+        'host' => 'http://http://119.29.152.83/storage/upload/',
     ],
 
     /*
