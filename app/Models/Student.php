@@ -38,4 +38,8 @@ class Student extends BaseModel
         }
         return $res;
     }
+
+    public function Add($data){
+        return $this->_add($data);
+    }
 }
