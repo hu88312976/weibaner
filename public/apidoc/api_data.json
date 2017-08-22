@@ -6,6 +6,75 @@
     "name": "getCourseList",
     "group": "Course",
     "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "industry_id",
+            "description": "<p>行业id,可传参数</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "is_heat",
+            "description": "<p>是否热门0否1是,可传参数</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "teacher_id",
+            "description": "<p>教师id,可传参数</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "course_type",
+            "description": "<p>课程类型1/2   分享/培训,可传参数</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "city_code",
+            "description": "<p>城市代码,可传参数</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "order_by",
+            "description": "<p>排序字段,可传参数</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "order_by_type",
+            "description": "<p>0升1降,可传参数</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "page_size",
+            "description": "<p>每页数量默认10,可传参数</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "page",
+            "description": "<p>第几页,可传参数</p>"
+          }
+        ]
+      }
+    },
     "success": {
       "fields": {
         "Success 200": [
@@ -32,7 +101,7 @@
           },
           {
             "group": "Success 200",
-            "type": "integer",
+            "type": "int",
             "optional": false,
             "field": "data.id",
             "description": "<p>课程ID</p>"
@@ -46,17 +115,80 @@
           },
           {
             "group": "Success 200",
+            "type": "int",
+            "optional": false,
+            "field": "data.course_type",
+            "description": "<p>课程类型1/2   分享/培训</p>"
+          },
+          {
+            "group": "Success 200",
             "type": "string",
             "optional": false,
-            "field": "data.number",
-            "description": "<p>排序</p>"
+            "field": "data.buy_number",
+            "description": "<p>购买数量</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "data.click_number",
+            "description": "<p>点击数量</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "data.old_price",
+            "description": "<p>原始价格</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "data.price",
+            "description": "<p>现价</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "int",
+            "optional": false,
+            "field": "data.is_heat",
+            "description": "<p>是否热门0否1是</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "data.image",
+            "description": "<p>图片</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "int",
+            "optional": false,
+            "field": "current_page",
+            "description": "<p>当前页</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "int",
+            "optional": false,
+            "field": "total",
+            "description": "<p>总条数</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "int",
+            "optional": false,
+            "field": "last_page",
+            "description": "<p>总页数</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n\"status\": 1,\n\"info\": \"ok\",\n\"data\": [\n{\n\"id\": 1,\n\"name\": \"Java\",\n\"number\": 9\n},\n{\n\"id\": 2,\n\"name\": \"PHP\",\n\"number\": 1\n},\n{\n\"id\": 3,\n\"name\": \"ASP.NET\",\n\"number\": 2\n},\n{\n\"id\": 4,\n\"name\": \"C/C++\",\n\"number\": 3\n},",
+          "content": "HTTP/1.1 200 OK\n{\n\"status\": 1,\n\"info\": \"ok\",\n\"data\": [\ncurrent_page\": 1,\n{\n\"id\": 1,\n\"name\": \"Java\",\n\"course_type\": 1,\n\"buy_number\": 0,\n\"click_number\": 0,\n\"old_price\": \"100.00\",\n\"price\": \"99.00\",\n\"is_heat\": 1,\n\"image\": \"specialty_images/1503368798_06412900.jpg\"\n}\n]\n}",
           "type": "json"
         }
       ]
