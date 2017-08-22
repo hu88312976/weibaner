@@ -62,14 +62,25 @@ class StudentController extends BaseController
               // {
                      // The passwords match...
                // }
-            return $request->all();
+           $data= [
+               'account'=> $request->get('account'),
+               'pwd'=> $request->get('pwd'),
+           ];
             //$id = $this->Student->add($request->all());
         }else{
             return $this->error('缺少参数');
         }
-
+        $data['name'] = $request->get('name');
+        $data['phone'] = $request->get('phone');
+        $data['email'] = $request->get('email');
+        $data['city_code'] = $request->get('city_code');
+        $data['address'] = $request->get('address');
+        $data['sex'] = $request->get('sex');
+        $data['birth'] = $request->get('birth');
+        $data['is_prof'] = $request->get('is_prof');
+        $id = $this->Student->add($data);
 
         $v = is_numeric ($id) ? $id : -1;
-        return $this->success($id);
+        return $this->success($v);
     }
 }
