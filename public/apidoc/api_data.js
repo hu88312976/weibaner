@@ -1,5 +1,96 @@
 define({ "api": [
   {
+    "type": "get",
+    "url": "getAdList",
+    "title": "获取广告列表",
+    "name": "getAdList",
+    "group": "Ad",
+    "version": "1.0.0",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "number",
+            "optional": false,
+            "field": "status",
+            "description": "<p>结果状态值，0：请求失败；1：请求成功</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "info",
+            "description": "<p>返回状态说明，status为0时，info返回错误原因，否则返回“OK”</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "array",
+            "optional": false,
+            "field": "data",
+            "description": "<p>返回数据</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "int",
+            "optional": false,
+            "field": "data.id",
+            "description": "<p>广告id</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "int",
+            "optional": false,
+            "field": "data.title",
+            "description": "<p>广告标题</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "int",
+            "optional": false,
+            "field": "data.image",
+            "description": "<p>广告图片</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "int",
+            "optional": false,
+            "field": "data.link_address",
+            "description": "<p>广告地址</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n\"status\": 1,\n\"info\": \"ok\",\n\"data\": [\n{\n\"id\": 1,\n\"title\": \"广告1\",\n\"image\": \"specialty_images/1503369608_88542300.jpg\",\n\"link_address\": \"www.baidu.com\"\n}\n]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/Http/Controllers/Api/AdController.php",
+    "groupTitle": "Ad",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "404",
+            "description": "<p>Not Found 接口不存在</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "404 Not Found:",
+          "content": "HTTP/1.1 404 Not Found\n{\n \"message\": \"404 Not Found\",\n \"status_code\": 404\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
     "type": "post",
     "url": "CommentUp",
     "title": "评论点赞和反点",
