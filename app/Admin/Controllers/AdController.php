@@ -83,9 +83,9 @@ class AdController extends Controller
                 if($image=="")
                     return "";
                 else if(substr($image,0,7)=="http://")
-                    return "<img src='".$image."' style='width:40px;height:40px;'>";
+                    return "<img src='".$image."' style='width:250px;height:100px;'>";
                 else if($image)
-                    return "<img src='".config('admin.upload.host').$image."' style='width:40px;height:40px;'>";
+                    return "<img src='".config('admin.upload.host').$image."' style='width:250px;height:100px;'>";
             });
             $grid->link_address('广告地址');
 
