@@ -20,4 +20,5 @@ Route::group([
     $router->resource('industry',IndustryController::class);
     $router->resource('ad',AdController::class);
     $router->resource('comment',CommentController::class);
+    $router->resource('order',OrderController::class);
 });

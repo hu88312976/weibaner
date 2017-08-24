@@ -3,17 +3,31 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
-class Student extends BaseModel
+class Order extends BaseModel
 {
+    public function Student()
+    {
+        return $this->belongsTo(Student::class,'stu_id');
+    }
 
     //
-    protected $table      = "student";
+    protected $table      = "order";
     protected $primaryKey = 'id';
 
-    public function Order()
+
+
+    public function getApiList(array $where = [], $pageSize = '')
     {
-        $this->hasOne(Order::class,'id');
+        $res = $this->leftjoin('student','student.id','order.stu_id')
+                    ->leftjoin('course','course.id','order.course_id')
+                    ->select('order.id','order.stu_id','order.course_id','order.price','order.remark',
+                             'order.pay_time','order.created_at','order.order_state','order.pay_type',
+                            'order.refund_time','order.created_at',
+                        'student.name as student_name','course.name as course_name')->MultiWhere($where)->paginate($pageSize);
+        $res = $res->toArray();
+        return $res;
     }
 
     /**
@@ -46,6 +60,6 @@ class Student extends BaseModel
     }
 
     public function Add($data){
-        return $this->_add($data);
+        return $this->_Add($data);
     }
 }

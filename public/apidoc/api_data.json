@@ -849,6 +849,333 @@
     }
   },
   {
+    "type": "post",
+    "url": "addOrder",
+    "title": "提交订单",
+    "name": "addOrder",
+    "group": "Order",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "course_id",
+            "description": "<p>课程id,必传参数</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "stu_id",
+            "description": "<p>学生id,必传参数</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "buy_num",
+            "description": "<p>上课人数,可传参数默认1</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "decimal",
+            "optional": false,
+            "field": "amount",
+            "description": "<p>应付金额,可传参数默认0</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "decimal",
+            "optional": false,
+            "field": "price",
+            "description": "<p>实付金额,可传参数默认0</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "pay_type",
+            "description": "<p>支付方式0现金1支付宝2微信3银联,可传参数默认0</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "order_state",
+            "description": "<p>支付状态0待支付1已支付2已退款3退款中4完成,可传参数默认0</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "text",
+            "optional": false,
+            "field": "remark",
+            "description": "<p>备注,可传参数</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "number",
+            "optional": false,
+            "field": "status",
+            "description": "<p>结果状态值，0：请求失败；1：请求成功</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "info",
+            "description": "<p>返回状态说明，status为0时，info返回错误原因，否则返回“OK”</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "array",
+            "optional": false,
+            "field": "data",
+            "description": "<p>返回数据</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "int",
+            "optional": false,
+            "field": "data.id",
+            "description": "<p>广告id</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "int",
+            "optional": false,
+            "field": "data.title",
+            "description": "<p>广告标题</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "int",
+            "optional": false,
+            "field": "data.image",
+            "description": "<p>广告图片</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "int",
+            "optional": false,
+            "field": "data.link_address",
+            "description": "<p>广告地址</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n\"status\": 1,\n\"info\": \"ok\",\n\"data\": [\n{\n\"id\": 1,\n\"title\": \"广告1\",\n\"image\": \"specialty_images/1503369608_88542300.jpg\",\n\"link_address\": \"www.baidu.com\"\n}\n]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/Http/Controllers/Api/OrderController.php",
+    "groupTitle": "Order",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "404",
+            "description": "<p>Not Found 接口不存在</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "404 Not Found:",
+          "content": "HTTP/1.1 404 Not Found\n{\n \"message\": \"404 Not Found\",\n \"status_code\": 404\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "getOrderList",
+    "title": "获取订单信息",
+    "name": "getOrderList",
+    "group": "Order",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "stu_id",
+            "description": "<p>学生id,必传参数</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "course_id",
+            "description": "<p>课程id,可传参数</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "order_state",
+            "description": "<p>支付状态0待支付1已支付2已退款3退款中4完成,可传参数</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "page_size",
+            "description": "<p>分页,可传参数默认每页10行</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "number",
+            "optional": false,
+            "field": "status",
+            "description": "<p>结果状态值，0：请求失败；1：请求成功</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "info",
+            "description": "<p>返回状态说明，status为0时，info返回错误原因，否则返回“OK”</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "array",
+            "optional": false,
+            "field": "data",
+            "description": "<p>返回数据</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "int",
+            "optional": false,
+            "field": "data.id",
+            "description": "<p>订单id</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "int",
+            "optional": false,
+            "field": "data.stu_id",
+            "description": "<p>学生id</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "int",
+            "optional": false,
+            "field": "data.course_id",
+            "description": "<p>课程id</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "data.price",
+            "description": "<p>实付金额</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "data.remark",
+            "description": "<p>备注</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "data.pay_time",
+            "description": "<p>付款时间</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "data.created_at",
+            "description": "<p>下单时间</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "int",
+            "optional": false,
+            "field": "data.order_state",
+            "description": "<p>支付状态0待支付1已支付2已退款3退款中4完成,可传参数默认0</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "data.refund_time",
+            "description": "<p>退款时间</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "data.student_name",
+            "description": "<p>学生名称</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "data.course_name",
+            "description": "<p>课程名称</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n\"status\": 1,\n\"info\": \"ok\",\n\"data\": {\n\"current_page\": 1,\n\"data\": [\n{\n\"id\": 6,\n\"stu_id\": 1,\n\"course_id\": 2,\n\"price\": \"0.00\",\n\"remark\": null,\n\"pay_time\": \"0000-00-00 00:00:00\",\n\"created_at\": null,\n\"order_state\": 1,\n\"pay_type\": 0,\n\"refund_time\": \"0000-00-00 00:00:00\",\n\"student_name\": \"张三\",\n\"course_name\": \"PHP\"\n}\n],\n\"from\": 1,\n\"last_page\": 1,\n\"next_page_url\": null,\n\"path\": \"http://weibaner.dev/api/getOrderList\",\n\"per_page\": 10,\n\"prev_page_url\": null,\n\"to\": 1,\n\"total\": 1\n}\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/Http/Controllers/Api/OrderController.php",
+    "groupTitle": "Order",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "404",
+            "description": "<p>Not Found 接口不存在</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "404 Not Found:",
+          "content": "HTTP/1.1 404 Not Found\n{\n \"message\": \"404 Not Found\",\n \"status_code\": 404\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
     "type": "get",
     "url": "getSpecialtyList",
     "title": "获取技能列表",
