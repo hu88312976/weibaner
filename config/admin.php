@@ -30,7 +30,7 @@ return [
     /*
      * Laravel-admin html title.
      */
-    'title'  => 'weibaner_admin',
+    'title'  => '微伴儿后台管理端',
 
     /*
      * Laravel-admin auth setting.
