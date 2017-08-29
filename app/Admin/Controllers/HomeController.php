@@ -35,8 +35,8 @@ class HomeController extends Controller
 
                 $row->column(3, new InfoBox('教师', 'users', 'aqua', '/admin/teacher',count(Teacher::all())));
                 $row->column(3, new InfoBox('学生', 'book', 'green', '/admin/student', count(Student::all())));
-                $row->column(3, new InfoBox('订单数', 'shopping-cart', 'yellow', '/admin/articles', count(Order::all())));
-                $row->column(3, new InfoBox('流水', 'file', 'red', '/admin/files', '698726'));
+                $row->column(3, new InfoBox('订单数', 'shopping-cart', 'yellow', '/admin/order', count(Order::all())));
+                $row->column(3, new InfoBox('流水', 'file', 'red', '/admin/order', Order::all()->sum('price') ));
             });
 
             $content->row(function (Row $row) {
