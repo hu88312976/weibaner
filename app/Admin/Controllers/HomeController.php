@@ -20,6 +20,7 @@ use Encore\Admin\Widgets\Tab;
 use Encore\Admin\Widgets\Table;
 use App\Models\Teacher;
 use App\Models\Student;
+use App\Models\Order;
 
 class HomeController extends Controller
 {
@@ -34,7 +35,7 @@ class HomeController extends Controller
 
                 $row->column(3, new InfoBox('教师', 'users', 'aqua', '/admin/teacher',count(Teacher::all())));
                 $row->column(3, new InfoBox('学生', 'book', 'green', '/admin/student', count(Student::all())));
-                $row->column(3, new InfoBox('订单数', 'shopping-cart', 'yellow', '/admin/articles', '2786'));
+                $row->column(3, new InfoBox('订单数', 'shopping-cart', 'yellow', '/admin/articles', count(Order::all())));
                 $row->column(3, new InfoBox('流水', 'file', 'red', '/admin/files', '698726'));
             });
 
