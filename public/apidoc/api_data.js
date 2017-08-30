@@ -471,6 +471,27 @@ define({ "api": [
             "group": "Success 200",
             "type": "string",
             "optional": false,
+            "field": "info.room_name",
+            "description": "<p>教室名称</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "info.roomaddress",
+            "description": "<p>教室地址</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "int",
+            "optional": false,
+            "field": "info.maximum",
+            "description": "<p>教室最大人数</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
             "field": "info.teacher_name",
             "description": "<p>教师名称</p>"
           },
@@ -494,6 +515,13 @@ define({ "api": [
             "optional": false,
             "field": "info.title",
             "description": "<p>教师头衔</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "info.image",
+            "description": "<p>教师图片</p>"
           },
           {
             "group": "Success 200",
@@ -528,7 +556,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n\"status\": 1,\n\"info\": \"ok\",\n\"data\": [\ncurrent_page\": 1,\n{\n\"id\": 1,\n\"name\": \"Java\",\n\"course_type\": 1,\n\"buy_number\": 0,\n\"click_number\": 0,\n\"old_price\": \"100.00\",\n\"price\": \"99.00\",\n\"is_heat\": 1,\n\"image\": \"specialty_images/1503368798_06412900.jpg\"\n}\n]\n}",
+          "content": "HTTP/1.1 200 OK\n{\n\"status\": 1,\n\"info\": \"ok\",\n\"data\": {\n\"info\": [\n{\n\"course_id\": 1,\n\"course_name\": \"Java\",\n\"room_name\": \"教室一\",\n\"roomaddress\": \"南湖大道148号15楼A\",\n\"maximum\": 40,\n\"teacher_name\": \"王先生\",\n\"specInfo\": null,\n\"teachInfo\": null,\n\"title\": null,\n\"image\": \"teacher_images/1502866470_31445600.jpg\"\n}\n],\n\"specialty_list\": [\n{\n\"id\": 1,\n\"name\": \"PHP入门知识\",\n\"info\": \"PHP入门知识PHP入门知识\"\n},\n{\n\"id\": 3,\n\"name\": \"高级PHP\",\n\"info\": \"PHP\"\n}\n]\n}\n}",
           "type": "json"
         }
       ]
@@ -751,6 +779,200 @@ define({ "api": [
     },
     "filename": "app/Http/Controllers/Api/CourseController.php",
     "groupTitle": "Course",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "404",
+            "description": "<p>Not Found 接口不存在</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "404 Not Found:",
+          "content": "HTTP/1.1 404 Not Found\n{\n \"message\": \"404 Not Found\",\n \"status_code\": 404\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "post",
+    "url": "FavoritesCourse",
+    "title": "收藏",
+    "name": "FavoritesCourse",
+    "group": "Favorites",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "course_id",
+            "description": "<p>课程id,必传参数</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "stu_id",
+            "description": "<p>学生id,必传参数</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "number",
+            "optional": false,
+            "field": "status",
+            "description": "<p>结果状态值，0：请求失败；1：请求成功</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "info",
+            "description": "<p>返回状态说明，status为0时，info返回错误原因，否则返回“OK”</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "array",
+            "optional": false,
+            "field": "data",
+            "description": "<p>返回新增的id -1等于失败 存在=删除反之新增</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n\"status\": 1,\n\"info\": \"ok\",\n\"data\": 8\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/Http/Controllers/Api/FavoritesController.php",
+    "groupTitle": "Favorites",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "404",
+            "description": "<p>Not Found 接口不存在</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "404 Not Found:",
+          "content": "HTTP/1.1 404 Not Found\n{\n \"message\": \"404 Not Found\",\n \"status_code\": 404\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "getFavoritesList",
+    "title": "获取学生收藏列表",
+    "name": "getFavoritesList",
+    "group": "Favorites",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "stu_id",
+            "description": "<p>学生id,必传参数</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "number",
+            "optional": false,
+            "field": "status",
+            "description": "<p>结果状态值，0：请求失败；1：请求成功</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "info",
+            "description": "<p>返回状态说明，status为0时，info返回错误原因，否则返回“OK”</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "array",
+            "optional": false,
+            "field": "data",
+            "description": "<p>返回数据</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "int",
+            "optional": false,
+            "field": "data.id",
+            "description": "<p>收藏列表id</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "int",
+            "optional": false,
+            "field": "data.stu_id",
+            "description": "<p>学生id</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "int",
+            "optional": false,
+            "field": "data.course_id",
+            "description": "<p>课程id</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "data.course_name",
+            "description": "<p>课程名称</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "data.image",
+            "description": "<p>课程图片</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n\"status\": 1,\n\"info\": \"ok\",\n\"data\": {\n\"current_page\": 1,\n\"data\": [\n{\n\"id\": 1,\n\"stu_id\": 1,\n\"course_id\": 1,\n\"course_name\": \"Java\",\n\"image\": \"specialty_images/1503368798_06412900.jpg\"\n}\n],\n\"from\": 1,\n\"last_page\": 1,\n\"next_page_url\": null,\n\"path\": \"http://weibaner.dev/api/getFavoritesList\",\n\"per_page\": 15,\n\"prev_page_url\": null,\n\"to\": 1,\n\"total\": 1\n}\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/Http/Controllers/Api/FavoritesController.php",
+    "groupTitle": "Favorites",
     "error": {
       "fields": {
         "Error 4xx": [

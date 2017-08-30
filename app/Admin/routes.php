@@ -18,6 +18,7 @@ Route::group([
     $router->resource('student', StudentController::class);
     $router->resource('classroom',ClassRoomController::class);
     $router->resource('industry',IndustryController::class);
+    $router->resource('industry_type',IndustryTypeController::class);
     $router->resource('ad',AdController::class);
     $router->resource('comment',CommentController::class);
     $router->resource('order',OrderController::class);

@@ -25,7 +25,8 @@ $api->version('v1', ["prefix" => "api/","namespace" => "App\\Http\\Controllers\\
         $api->get("getCommentList", "CommentController@getCommentList");//获取评论列表
         $api->get("LoginStu", "StudentController@LoginStu");//学生登录
         $api->get("getCourseDetail", "CourseController@getCourseDetail");//课程详情
-        $api->get("getOrderList", "OrderController@getOrderList");//课程详情
+        $api->get("getOrderList", "OrderController@getOrderList");//订单列表
+        $api->get("getFavoritesList", "FavoritesController@getFavoritesList");//订单列表
 
 
 
@@ -33,4 +34,5 @@ $api->version('v1', ["prefix" => "api/","namespace" => "App\\Http\\Controllers\\
         $api->post("addComment","CommentController@addComment");//提交评论
         $api->post("CommentUp","CommentController@CommentUp");//评论点赞
         $api->post("addOrder","OrderController@addOrder");//提交订单
+        $api->post("FavoritesCourse","FavoritesController@FavoritesCourse");//提交订单
     });

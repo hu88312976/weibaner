@@ -131,10 +131,14 @@ class CourseController extends BaseController
      * @apiSuccess {array} info 返回数据
      * @apiSuccess {int}   info.course_id 课程ID
      * @apiSuccess {string}   info.course_name 课程名称
+     * @apiSuccess {string}   info.room_name 教室名称
+     * @apiSuccess {string}   info.roomaddress 教室地址
+     * @apiSuccess {int}   info.maximum 教室最大人数
      * @apiSuccess {string}   info.teacher_name 教师名称
      * @apiSuccess {string}   info.specInfo 技能介绍
      * @apiSuccess {string}   info.teachInfo 教师信息
      * @apiSuccess {string}   info.title 教师头衔
+     * @apiSuccess {string}   info.image 教师图片
      * @apiSuccess {array} specialty_list 返回数据
      * @apiSuccess {int}   specialty_list.id 技能id
      * @apiSuccess {string}   specialty_list.name 技能名称
@@ -145,20 +149,34 @@ class CourseController extends BaseController
      *{
      *"status": 1,
      *"info": "ok",
-     *"data": [
-     * current_page": 1,
+     *"data": {
+     *"info": [
+     *{
+     *"course_id": 1,
+     *"course_name": "Java",
+     *"room_name": "教室一",
+     *"roomaddress": "南湖大道148号15楼A",
+     *"maximum": 40,
+     *"teacher_name": "王先生",
+     *"specInfo": null,
+     *"teachInfo": null,
+     *"title": null,
+     *"image": "teacher_images/1502866470_31445600.jpg"
+     *}
+     *],
+     *"specialty_list": [
      *{
      *"id": 1,
-     *"name": "Java",
-     *"course_type": 1,
-     *"buy_number": 0,
-     *"click_number": 0,
-     *"old_price": "100.00",
-     *"price": "99.00",
-     *"is_heat": 1,
-     *"image": "specialty_images/1503368798_06412900.jpg"
+     *"name": "PHP入门知识",
+     *"info": "PHP入门知识PHP入门知识"
+     *},
+     *{
+     *"id": 3,
+     *"name": "高级PHP",
+     *"info": "PHP"
      *}
      *]
+     *}
      *}
      *
      * @return \Illuminate\Http\JsonResponse

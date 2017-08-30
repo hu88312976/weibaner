@@ -6,7 +6,7 @@ use App\Models\Course;
 use App\Models\Teacher;
 use App\Models\City;
 use App\Models\ClassRoom;
-use App\Models\Industry;
+use App\Models\IndustryType;
 
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -162,8 +162,8 @@ class CourseController extends Controller
             ];
             $form->switch('is_heat','是否热门')->states($states);
 
-            $industry = new Industry();
-            $form->select('industry_id', "归属行业")->options($industry::all()->pluck('name','id'));
+            $industryType = new IndustryType();
+            $form->select('industry_type_id', "归属行业类别")->options($industryType::all()->pluck('name','id'));
 
             $teacher = new Teacher();
             $form->select('teacher_id', "发布教师")->options($teacher::all()->pluck('name','id'));

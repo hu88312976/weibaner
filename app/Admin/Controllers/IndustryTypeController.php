@@ -2,8 +2,9 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\ClassRoom;
 use App\Models\City;
+use App\Models\IndustryType;
+use App\Models\Industry;
 
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -16,7 +17,7 @@ use App\Admin\Extensions\Tools\GridView;
 use Illuminate\Http\Request;
 
 
-class ClassRoomController extends Controller
+class IndustryTypeController extends Controller
 {
     use ModelForm;
 
@@ -29,7 +30,7 @@ class ClassRoomController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('教室管理');
+            $content->header('行业类别管理');
             $content->description('');
 
             $content->body($this->grid());
@@ -46,7 +47,7 @@ class ClassRoomController extends Controller
     {
         return Admin::content(function (Content $content) use ($id) {
 
-            $content->header('编辑教室');
+            $content->header('编辑行业类别');
             $content->description('');
 
             $content->body($this->form()->edit($id));
@@ -62,7 +63,7 @@ class ClassRoomController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('创建教室');
+            $content->header('创建行业类别');
             $content->description('');
 
             $content->body($this->form());
@@ -76,15 +77,15 @@ class ClassRoomController extends Controller
      */
     protected function grid()
     {
-        return Admin::grid(ClassRoom::class, function (Grid $grid) {
+        return Admin::grid(IndustryType::class, function (Grid $grid) {
 
-            $grid->city_code('城市')->value(function($city_code){
-                $city = new City();
-                return $city->getOne(['code'=>$city_code])->name;
+            $grid->name('行业类别名称');
+            $grid->industry_id("归属行业")->value(function ($industry_id){
+                $industry = new Industry();
+                return $industry->find($industry_id)->name;
             });
-            $grid->name('教室名称');
-            $grid->roomaddress('教室地址');
-            $grid->maximum('最大人数');
+
+
 
             $grid->disableExport();
             $grid->filter(function ($filter) {
@@ -100,11 +101,11 @@ class ClassRoomController extends Controller
      */
     protected function form()
     {
-        return Admin::form(ClassRoom::class, function (Form $form) {
-            $form->select('city_code', '城市')->options(City::all()->pluck('name','code'));
-            $form->text('name',"教室名称");
-            $form->text('roomaddress','教室地址');
-            $form->number('maximum','最大人数');
+        return Admin::form(IndustryType::class, function (Form $form) {
+
+            $form->text('name',"名称");
+            $industry = new Industry();
+            $form->select('industry_id', "归属行业")->options($industry::all()->pluck('name','id'));
             $form->display('created_at', '创建时间');
             $form->display('updated_at', '最后修改时间');
         });

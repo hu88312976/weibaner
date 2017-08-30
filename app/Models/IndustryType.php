@@ -4,28 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-use App\Models\Specialty;
-
-class Course extends BaseModel
+class industrytype extends BaseModel
 {
     //
-    protected $table      = "course";
+    protected $table      = "industry_type";
     protected $primaryKey = 'id';
 
-    public function getDetail($course_id){
-        $res['info'] = $this->select('course.id as course_id','course.name as course_name','classroom.name as room_name'
-            ,'classroom.roomaddress','classroom.maximum',
-            'teacher.name as teacher_name','teacher.specInfo','teacher.teachInfo','teacher.title','teacher.image')
-            ->leftjoin('teacher','teacher.id','course.teacher_id')
-            ->leftjoin('classroom','classroom.id','course.room_id')
-            ->where('course.id','=',$course_id)->get();
-
-        $specialty = new Specialty();
-        $list =  $specialty->getList(['course_id'=>$course_id],['id','name','info']);
-
-        $res['specialty_list']=$list;
-        return $res;
-    }
     /**
      * 按条件查询单条数据
      */
@@ -38,14 +22,12 @@ class Course extends BaseModel
      */
     public function getList(array $where = [], $fields = '*', $order = '', $pageSize = '')
     {
-
+        $order = ['id' => 'asc'];
         if ($pageSize) {
             $res = $this->getPaginate($where, $fields, $order, $pageSize);
             if ($res) {
                 $res = $res->toArray();
             }
-
-
         } else {
             $res = $this->getAll($where, $fields, $order);
             if ($res) {

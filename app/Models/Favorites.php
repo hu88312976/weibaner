@@ -4,26 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-use App\Models\Specialty;
-
-class Course extends BaseModel
+class Favorites extends BaseModel
 {
     //
-    protected $table      = "course";
+    protected $table      = "favorites";
     protected $primaryKey = 'id';
 
-    public function getDetail($course_id){
-        $res['info'] = $this->select('course.id as course_id','course.name as course_name','classroom.name as room_name'
-            ,'classroom.roomaddress','classroom.maximum',
-            'teacher.name as teacher_name','teacher.specInfo','teacher.teachInfo','teacher.title','teacher.image')
-            ->leftjoin('teacher','teacher.id','course.teacher_id')
-            ->leftjoin('classroom','classroom.id','course.room_id')
-            ->where('course.id','=',$course_id)->get();
+    public function getApiList(array $where = [],  $pageSize = '')
+    {
+        $res = $this->leftjoin('course','course.id','favorites.course_id')
+            ->select('favorites.*','course.id as course_id','course.name as course_name','course.image')->MultiWhere($where)->paginate($pageSize);
+        $res = $res->toArray();
 
-        $specialty = new Specialty();
-        $list =  $specialty->getList(['course_id'=>$course_id],['id','name','info']);
-
-        $res['specialty_list']=$list;
         return $res;
     }
     /**
@@ -38,7 +30,7 @@ class Course extends BaseModel
      */
     public function getList(array $where = [], $fields = '*', $order = '', $pageSize = '')
     {
-
+        $order = ['id' => 'asc'];
         if ($pageSize) {
             $res = $this->getPaginate($where, $fields, $order, $pageSize);
             if ($res) {
@@ -53,5 +45,13 @@ class Course extends BaseModel
             }
         }
         return $res;
+    }
+
+    public function Add($data){
+        return $this->_add($data);
+    }
+
+    public function Del($where){
+        return $this->_del($where);
     }
 }
