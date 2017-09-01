@@ -84,7 +84,7 @@ class ClassRoomController extends Controller
             });
             $grid->name('教室名称');
             $grid->roomaddress('教室地址');
-            $grid->maximum('最大人数');
+          //  $grid->maximum('最大人数');
 
             $grid->disableExport();
             $grid->filter(function ($filter) {
