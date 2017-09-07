@@ -14,7 +14,7 @@ class Course extends BaseModel
 
     public function getDetail($course_id){
         $res['info'] = $this->select('course.id as course_id','course.name as course_name','classroom.name as room_name'
-            ,'classroom.roomaddress','classroom.maximum',
+            ,'classroom.roomaddress','classroom.maximum','course.start_time','course.end_time',
             'teacher.name as teacher_name','teacher.specInfo','teacher.teachInfo','teacher.title','teacher.image')
             ->leftjoin('teacher','teacher.id','course.teacher_id')
             ->leftjoin('classroom','classroom.id','course.room_id')

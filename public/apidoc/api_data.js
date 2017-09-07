@@ -483,6 +483,20 @@ define({ "api": [
           },
           {
             "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "info.start_time",
+            "description": "<p>开始时间</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "info.end_time",
+            "description": "<p>结束时间</p>"
+          },
+          {
+            "group": "Success 200",
             "type": "int",
             "optional": false,
             "field": "info.maximum",
@@ -556,7 +570,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n\"status\": 1,\n\"info\": \"ok\",\n\"data\": {\n\"info\": [\n{\n\"course_id\": 1,\n\"course_name\": \"Java\",\n\"room_name\": \"教室一\",\n\"roomaddress\": \"南湖大道148号15楼A\",\n\"maximum\": 40,\n\"teacher_name\": \"王先生\",\n\"specInfo\": null,\n\"teachInfo\": null,\n\"title\": null,\n\"image\": \"teacher_images/1502866470_31445600.jpg\"\n}\n],\n\"specialty_list\": [\n{\n\"id\": 1,\n\"name\": \"PHP入门知识\",\n\"info\": \"PHP入门知识PHP入门知识\"\n},\n{\n\"id\": 3,\n\"name\": \"高级PHP\",\n\"info\": \"PHP\"\n}\n]\n}\n}",
+          "content": "HTTP/1.1 200 OK\n{\n\"status\": 1,\n\"info\": \"ok\",\n\"data\": {\n\"info\": [\n{\n\"course_id\": 1,\n\"course_name\": \"Java\",\n\"room_name\": \"教室一\",\n\"roomaddress\": \"南湖大道148号15楼A\",\n\"maximum\": 40,\n\"teacher_name\": \"王先生\",\n\"specInfo\": null,\n\"teachInfo\": null,\n\"start_time\": \"2017-08-22 00:00:00\",\n\"end_time\": \"2017-08-26 00:00:00\",\n\"title\": null,\n\"image\": \"teacher_images/1502866470_31445600.jpg\"\n}\n],\n\"specialty_list\": [\n{\n\"id\": 1,\n\"name\": \"PHP入门知识\",\n\"info\": \"PHP入门知识PHP入门知识\"\n},\n{\n\"id\": 3,\n\"name\": \"高级PHP\",\n\"info\": \"PHP\"\n}\n]\n}\n}",
           "type": "json"
         }
       ]
@@ -748,6 +762,20 @@ define({ "api": [
           },
           {
             "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "data.start_time",
+            "description": "<p>开始时间</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "data.end_time",
+            "description": "<p>结束时间</p>"
+          },
+          {
+            "group": "Success 200",
             "type": "int",
             "optional": false,
             "field": "current_page",
@@ -772,7 +800,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n\"status\": 1,\n\"info\": \"ok\",\n\"data\": [\ncurrent_page\": 1,\n{\n\"id\": 1,\n\"name\": \"Java\",\n\"course_type\": 1,\n\"buy_number\": 0,\n\"click_number\": 0,\n\"old_price\": \"100.00\",\n\"price\": \"99.00\",\n\"is_heat\": 1,\n\"image\": \"specialty_images/1503368798_06412900.jpg\"\n}\n]\n}",
+          "content": "HTTP/1.1 200 OK\n{\n\"status\": 1,\n\"info\": \"ok\",\n\"data\": [\ncurrent_page\": 1,\n{\n\"id\": 1,\n\"name\": \"Java\",\n\"course_type\": 1,\n\"buy_number\": 0,\n\"click_number\": 0,\n\"old_price\": \"100.00\",\n\"price\": \"99.00\",\n\"is_heat\": 1,\n\"image\": \"specialty_images/1503368798_06412900.jpg\"\n\"start_time\": \"2017-08-22 00:00:00\",\n\"end_time\": \"2017-08-26 00:00:00\"\n}\n]\n}",
           "type": "json"
         }
       ]

@@ -44,6 +44,8 @@ class CourseController extends BaseController
      * @apiSuccess {string}   data.price 现价
      * @apiSuccess {int}   data.is_heat 是否热门0否1是
      * @apiSuccess {string}   data.image 图片
+     * @apiSuccess {string}   data.start_time 开始时间
+     * @apiSuccess {string}   data.end_time 结束时间
      * @apiSuccess {int}   current_page 当前页
      * @apiSuccess {int}   total 总条数
      * @apiSuccess {int}   last_page 总页数
@@ -65,6 +67,8 @@ class CourseController extends BaseController
      *"price": "99.00",
      *"is_heat": 1,
      *"image": "specialty_images/1503368798_06412900.jpg"
+     * "start_time": "2017-08-22 00:00:00",
+     *"end_time": "2017-08-26 00:00:00"
      *}
      *]
      *}
@@ -113,7 +117,7 @@ class CourseController extends BaseController
             $page_size = 10;
         }
 
-        $re_list = $this->Course->getList($where,['id','name','course_type','buy_number','click_number','old_price','price','is_heat','image'],$order_by,$page_size);
+        $re_list = $this->Course->getList($where,['id','name','course_type','buy_number','click_number','old_price','price','is_heat','image','start_time','end_time'],$order_by,$page_size);
         return  $this->success($re_list);
     }
 
@@ -133,6 +137,8 @@ class CourseController extends BaseController
      * @apiSuccess {string}   info.course_name 课程名称
      * @apiSuccess {string}   info.room_name 教室名称
      * @apiSuccess {string}   info.roomaddress 教室地址
+     * @apiSuccess {string}   info.start_time 开始时间
+     * @apiSuccess {string}   info.end_time 结束时间
      * @apiSuccess {int}   info.maximum 教室最大人数
      * @apiSuccess {string}   info.teacher_name 教师名称
      * @apiSuccess {string}   info.specInfo 技能介绍
@@ -160,6 +166,8 @@ class CourseController extends BaseController
      *"teacher_name": "王先生",
      *"specInfo": null,
      *"teachInfo": null,
+     * "start_time": "2017-08-22 00:00:00",
+     *"end_time": "2017-08-26 00:00:00",
      *"title": null,
      *"image": "teacher_images/1502866470_31445600.jpg"
      *}
