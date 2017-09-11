@@ -67,11 +67,16 @@ class StudentController extends BaseController
     public function LoginStu(Request $request)
     {
         $re_list = $this->Student->getOne(['account'=>$request->get('account'),'pwd'=>$request->get('pwd')],['id','name','city_code','sex','phone','email','address','birth','is_prof']);
+        if (count($re_list) == 0) {
+            return  $this->error('账号密码错误');
+        }
         $sex = $re_list['sex'];
         $city = new  City();
         $re_list['city_name'] = $city->getOne(['code'=>$re_list['city_code']])->name;
+
         $re_list['sex'] = $sex == 1 ? '男':'女';
         $re_list['is_prof'] = $sex == 0 ? '在校':'在职';
+
         return  $this->success($re_list);
     }
     /**
