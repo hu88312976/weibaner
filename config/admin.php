@@ -54,7 +54,7 @@ return [
 
         ],
 
-        'host' => 'http://39.108.4.136/storage/upload/',
+        'host' => 'http://39.108.4.136:8088/storage/upload/',
     ],
 
     /*

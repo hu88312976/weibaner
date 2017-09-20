@@ -76,7 +76,8 @@ class StudentController extends BaseController
 
         $re_list['sex'] = $sex == 1 ? '男':'女';
         $re_list['is_prof'] = $sex == 0 ? '在校':'在职';
-
+        session(['users' => $request->get('account')]);
+        $re_list['users_cok']= session('users');
         return  $this->success($re_list);
     }
     /**
