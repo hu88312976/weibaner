@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Comment;
 use App\Models\CommentGood;
 use Dingo\Api\Http\Request;
+use DB;
 
 class CommentController extends BaseController
 {
@@ -166,7 +167,7 @@ class CommentController extends BaseController
         if(count($res) > 0){
             return $this->error('重复评论');
         }
-
+        DB::table('course')->where('id','=',$request->get('course_id'))->increment('comment_number');
         $data['message']=$request->get('message');
         $data['level']=$request->get('level');
         $data['parent_id']=$request->get('parent_id');

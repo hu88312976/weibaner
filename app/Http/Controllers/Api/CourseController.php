@@ -40,6 +40,7 @@ class CourseController extends BaseController
      * @apiSuccess {int}   data.course_type 课程类型1/2   分享/培训
      * @apiSuccess {string}   data.buy_number 购买数量
      * @apiSuccess {string}   data.click_number 点击数量
+     * @apiSuccess {string}   data.comment_number 评论数量
      * @apiSuccess {string}   data.old_price 原始价格
      * @apiSuccess {string}   data.price 现价
      * @apiSuccess {int}   data.is_heat 是否热门0否1是
@@ -117,7 +118,7 @@ class CourseController extends BaseController
             $page_size = 10;
         }
 
-        $re_list = $this->Course->getList($where,['id','name','course_type','buy_number','click_number','old_price','price','is_heat','image','start_time','end_time'],$order_by,$page_size);
+        $re_list = $this->Course->getList($where,['id','name','course_type','buy_number','click_number','comment_number','old_price','price','is_heat','image','start_time','end_time'],$order_by,$page_size);
         return  $this->success($re_list);
     }
 

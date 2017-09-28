@@ -13,6 +13,10 @@ class Course extends BaseModel
     protected $primaryKey = 'id';
 
     public function getDetail($course_id){
+
+
+        $this->where('id','=',$course_id)->increment('click_number');
+
         $res['info'] = $this->select('course.id as course_id','course.name as course_name','classroom.name as room_name'
             ,'classroom.roomaddress','classroom.maximum','course.start_time','course.end_time',
             'teacher.name as teacher_name','teacher.specInfo','teacher.teachInfo','teacher.title','teacher.image')
@@ -23,7 +27,10 @@ class Course extends BaseModel
         $specialty = new Specialty();
         $list =  $specialty->getList(['course_id'=>$course_id],['id','name','info']);
 
+
         $res['specialty_list']=$list;
+
+
         return $res;
     }
     /**

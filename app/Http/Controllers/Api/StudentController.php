@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Support\Facades\Hash;
 use App\Models\Student;
 use App\Models\City;
 use Dingo\Api\Http\Request;
@@ -76,8 +75,11 @@ class StudentController extends BaseController
 
         $re_list['sex'] = $sex == 1 ? '男':'女';
         $re_list['is_prof'] = $sex == 0 ? '在校':'在职';
+
         session(['users' => $request->get('account')]);
-        $re_list['users_cok']= session('users');
+
+       $value = session()->getid();
+        $re_list['sid']= session_id($value);
         return  $this->success($re_list);
     }
     /**
