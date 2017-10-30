@@ -81,7 +81,7 @@ class ClassRoomController extends Controller
          //   $grid->city_code('城市')->value(function($city_code){
            //     $city = new City();
              //   return $city->getOne(['code'=>$city_code])->name;
-            });
+          //  });
             $grid->name('教室名称');
             $grid->roomaddress('教室地址');
             $grid->maximum('最大人数');
