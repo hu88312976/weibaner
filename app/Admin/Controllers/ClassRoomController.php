@@ -82,11 +82,11 @@ class ClassRoomController extends Controller
                 $city = new City();
                 return $city->getOne(['code'=>$city_code])->name;
             });
-            $grid->name('教室名称');
-            $grid->roomaddress('教室地址');
-            $grid->maximum('最大人数');
+          //  $grid->name('教室名称');
+          //  $grid->roomaddress('教室地址');
+          //  $grid->maximum('最大人数');
 
-            $grid->disableExport();
+          //  $grid->disableExport();
             $grid->filter(function ($filter) {
                 $filter->disableIdFilter();
             });
