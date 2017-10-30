@@ -103,6 +103,7 @@ class ClassRoomController extends Controller
         return Admin::form(ClassRoom::class, function (Form $form) {
             $form->select('city_code', '城市')->options(City::all()->pluck('name','code'));
             $form->text('name',"教室名称");
+
             $form->text('roomaddress','教室地址');
             $form->number('maximum','最大人数');
             $form->display('created_at', '创建时间');
